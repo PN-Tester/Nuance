@@ -1,6 +1,148 @@
 //Nuance content script for inserting bold and italic unicode equivalents into text fields where there is no markdown control
 //made by pn-tester 
 
+function insertDiacriticalMarkAbove() {
+  const selectedText = window.getSelection().toString();
+
+  if (selectedText) {
+    const diacriticalMarkAbove = '\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304\u0304'; // Diacritical mark above character (Example: 'Ā')
+
+    // Get the active element where the selected text is located
+    const activeElement = document.activeElement;
+
+    if (activeElement) {
+      if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
+        // Case 1: The active element is a contenteditable div
+
+        // Create a new text node with the diacritical mark above character
+        const newNode = document.createTextNode(diacriticalMarkAbove);
+
+        // Get the selection range
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+
+            // Insert the new node at the end of the selected content
+          range.collapse();
+          range.insertNode(newNode);
+          range.collapse();
+          
+          // Trigger an input event to update the target element
+          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+          targetElement.dispatchEvent(new Event('input'));
+        }
+      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        // Case 2: The active element is an input or textarea
+        const start = activeElement.selectionStart;
+        const end = activeElement.selectionEnd;
+
+        // Append the diacritical mark above character to the end of the selected text
+        const newText = selectedText + diacriticalMarkAbove;
+
+        // Set the updated text back to the input field
+        activeElement.value = activeElement.value.substring(0, start) + newText + activeElement.value.substring(end);
+
+        // Move the cursor to the end of the inserted content
+        activeElement.selectionStart = start;
+        activeElement.selectionEnd = start + newText.length;
+      }
+    }
+  }
+}
+
+function insertRightLeftMark() {
+  const selectedText = window.getSelection().toString();
+
+  if (selectedText) {
+    const rightLeftMark = '\u202E';
+
+    // Get the active element where the selected text is located
+    const activeElement = document.activeElement;
+
+    if (activeElement) {
+      if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
+        // Case 1: The active element is a contenteditable div
+
+        // Create a new text node with the diacritical mark above character
+        const newNode = document.createTextNode(rightLeftMark);
+
+        // Get the selection range
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+
+          // Insert the new node before the selected content
+          range.insertNode(newNode);
+          range.setStartBefore(newNode);
+
+          // Trigger an input event to update the target element
+          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+          targetElement.dispatchEvent(new Event('input'));
+        }
+      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        // Case 2: The active element is an input or textarea
+        const start = activeElement.selectionStart;
+
+        // Prepend the diacritical mark above character to the selected text
+        const newText = rightLeftMark + selectedText;
+
+        // Set the updated text back to the input field
+        activeElement.value = activeElement.value.substring(0, start) + newText + activeElement.value.substring(activeElement.selectionEnd);
+
+        // Move the cursor to the end of the inserted content
+        activeElement.selectionStart = start;
+        activeElement.selectionEnd = start + newText.length;
+      }
+    }
+  }
+}
+
+
+function insertSTIRT() {
+  const selectedText = window.getSelection().toString();
+
+  if (selectedText) {
+    const stirtMark = '\uFB05'; // Insert the ft mark, which is converted to st when upper() operation occurs in most languages
+
+    // Get the active element where the selected text is located
+    const activeElement = document.activeElement;
+
+    if (activeElement) {
+      if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
+        // Case 1: The active element is a contenteditable div
+
+        // Create a new text node with the diacritical mark above character
+        const newNode = document.createTextNode(stirtMark);
+
+        // Get the selection range
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
+
+          range.insertNode(newNode);
+          range.collapse();
+          
+          // Trigger an input event to update the target element
+          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+          targetElement.dispatchEvent(new Event('input'));
+        }
+      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        // Case 2: The active element is an input or textarea
+        const start = activeElement.selectionStart;
+        const end = activeElement.selectionEnd;
+
+        // Append the diacritical mark above character to the end of the selected text
+        activeElement.value = stirtMark;
+
+        // Move the cursor to the end of the inserted content
+        activeElement.selectionStart = start;
+        activeElement.selectionEnd = start + newText.length;
+      }
+    }
+  }
+}
+
 // Function to replace a character with its bold Unicode equivalent
 function replaceWithBoldUnicode(char) {
   const charMap = {
@@ -113,6 +255,17 @@ function replaceSelectedText(style) {
 // Listen for messages from the background script
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === 'replaceSelectedText') {
-    replaceSelectedText(message.style);
+    if (message.style === 'diacritical') {
+      insertDiacriticalMarkAbove();
+    } 
+    if (message.style === 'STIRT'){
+      insertSTIRT();
+    }
+    if (message.style === 'RightLeft'){
+      insertRightLeftMark();
+    }
+    else {
+      replaceSelectedText(message.style);
+    }
   }
 });
