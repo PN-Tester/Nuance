@@ -13,7 +13,7 @@ Almost all systems are capable of rendering the bold and italic text generated b
 
 More features will be added in the near future!
 
-![Nuance Screenshot](https://github.com/PN-Tester/Nuance/blob/main/screenshot.png)
+![Nuance Screenshot](https://github.com/PN-Tester/Nuance/blob/main/demo.png)
 
 # Installation
 
