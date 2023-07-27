@@ -17,6 +17,7 @@ Almost all systems are capable of rendering the bold and italic text generated b
 1. Select the text on screen you wish to transform
 2. Click the extension icon to open extension pop-up
 3. Select either BOLD or ITALICS button
-4. The selected text is now replaced with the appropriate version in unicode
+4. The selected text is now replaced with the appropriate unicode
+5. Send the modified message using the native platform
 
 This tool will have additonal functionality added periodically.
