@@ -7,7 +7,7 @@ Almost all systems are capable of rendering the bold and italic text generated b
 
 1. Bold unicode character substitution
 2. Italic unicode character substitution
-3. Terminating Diacritical Mark Up (x50) injection
+3. Terminating Diacritical Mark Up injection
 4. Latin Small Ligature Long ST to ST transformation injection ( triggers on uppercase transforms )
 5. Right-to-left override injection
 
