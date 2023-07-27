@@ -257,6 +257,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === 'replaceSelectedText') {
     if (message.style === 'diacritical') {
       insertDiacriticalMarkAbove();
+      return;
     } 
     if (message.style === 'STIRT'){
       insertSTIRT();
