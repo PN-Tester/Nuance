@@ -5,7 +5,7 @@ body {
   flex-direction: column; /* Display children elements in a column */
   align-items: center; /* Center horizontally */
   justify-content: center; /* Center vertically */
-  height: 180px; /* Increased height to accommodate the "Nuance" part */
+  height: 300px; /* Increased height to accommodate the "Nuance" part and new buttons*/
   background: linear-gradient(to right bottom, #333333, #111111); /* Darker initial color */
 }
 
@@ -38,7 +38,7 @@ button {
 
 /* Small, thin, almost transparent title */
 .nuance-title {
-  font-size: 6px;
+  font-size: 7px;
   font-weight: bold;
   color: rgba(255, 255, 255, 0.3);
 }
