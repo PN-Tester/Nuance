@@ -11,7 +11,7 @@
       "js": ["content.js"]
     }
   ],
-  "permissions": ["activeTab","clipboardRead","clipboardWrite"],
+  "permissions": ["activeTab"],
   "web_accessible_resources": [
     "popup.css"
   ],
