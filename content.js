@@ -1,6 +1,20 @@
 //Nuance content script for inserting bold and italic unicode equivalents into text fields where there is no markdown control
 //made by pn-tester 
 
+//this helper functions needs to be used when sending on whatsapp and possibly other platforms. Included in conditional logic for when whatsapp is encountered.
+function send_text_helper(text) {
+const dataTransfer = new DataTransfer();
+dataTransfer.setData('text', text);
+const event = new ClipboardEvent('paste', {
+      clipboardData: dataTransfer,
+      bubbles: true
+    });
+let el = document.querySelector('#main .copyable-area [contenteditable="true"][role="textbox"]')
+el.dispatchEvent(event)
+}
+
+
+
 function insertXSSPolyglot() {
   const selectedText = window.getSelection().toString();
 
@@ -14,24 +28,31 @@ function insertXSSPolyglot() {
 
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
-        // Case 1: The active element is a contenteditable div
-        // create new text node containing the polyglot decoded
-        const newNode = document.createTextNode(decodedBlob);
-
-        // Get the selection range
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          range.deleteContents();
-
-          range.insertNode(newNode);
-          range.collapse();
-          
-          // Trigger an input event to update the target element
-          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
-          targetElement.dispatchEvent(new Event('input'));
+        //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
+        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+          send_text_helper(decodedBlob);
         }
-      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        else{
+          // Case 1: The active element is a contenteditable div
+          // create new text node containing the polyglot decoded
+          const newNode = document.createTextNode(decodedBlob);
+
+          // Get the selection range
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+
+            range.insertNode(newNode);
+            range.collapse();
+            
+            // Trigger an input event to update the target element
+            const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+            targetElement.dispatchEvent(new Event('input',{bubbles: true}));
+          }
+        }
+      }
+      else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
         // Case 2: The active element is an input or textarea
         const start = activeElement.selectionStart;
         const end = activeElement.selectionEnd;
@@ -58,26 +79,36 @@ function insertDiacriticalMarkAbove() {
 
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
-        // Case 1: The active element is a contenteditable div
-
-        // Create a new text node with the diacritical mark above character
-        const newNode = document.createTextNode(diacriticalMarkAbove);
-
-        // Get the selection range
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
+        //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
+        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+          const selection = window.getSelection();
           const range = selection.getRangeAt(0);
-
-            // Insert the new node at the end of the selected content
           range.collapse();
-          range.insertNode(newNode);
-          range.collapse();
-          
-          // Trigger an input event to update the target element
-          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
-          targetElement.dispatchEvent(new Event('input'));
+          send_text_helper(diacriticalMarkAbove);
         }
-      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        else{
+          // Case 1: The active element is a contenteditable div
+
+          // Create a new text node with the diacritical mark above character
+          const newNode = document.createTextNode(diacriticalMarkAbove);
+
+          // Get the selection range
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+
+              // Insert the new node at the end of the selected content
+            range.collapse();
+            range.insertNode(newNode);
+            range.collapse();
+            
+            // Trigger an input event to update the target element
+            const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+            targetElement.dispatchEvent(new Event('input'));
+          }
+        }
+      }
+      else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
         // Case 2: The active element is an input or textarea
         const start = activeElement.selectionStart;
         const end = activeElement.selectionEnd;
@@ -107,25 +138,43 @@ function insertRightLeftMark() {
 
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
-        // Case 1: The active element is a contenteditable div
-
-        // Create a new text node with the diacritical mark above character
-        const newNode = document.createTextNode(rightLeftMark);
-
-        // Get the selection range
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
+        //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
+        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+          //we need a super annoying algo to get to the front of the selection here haha, rip
+          const selection = window.getSelection();
           const range = selection.getRangeAt(0);
-
-          // Insert the new node before the selected content
-          range.insertNode(newNode);
-          range.setStartBefore(newNode);
-
-          // Trigger an input event to update the target element
-          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
-          targetElement.dispatchEvent(new Event('input'));
+          const newRange = document.createRange();
+          const startNode = range.startContainer;
+          const startOffset = range.startOffset;
+          newRange.setStart(startNode, startOffset);
+          newRange.setEnd(startNode, startOffset);
+          newRange.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(newRange);
+          send_text_helper(rightLeftMark);
         }
-      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        else{
+          // Case 1: The active element is a contenteditable div
+
+          // Create a new text node with the diacritical mark above character
+          const newNode = document.createTextNode(rightLeftMark);
+
+          // Get the selection range
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+
+            // Insert the new node before the selected content
+            range.insertNode(newNode);
+            range.setStartBefore(newNode);
+
+            // Trigger an input event to update the target element
+            const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+            targetElement.dispatchEvent(new Event('input'));
+          }
+        }
+      }
+      else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
         // Case 2: The active element is an input or textarea
         const start = activeElement.selectionStart;
 
@@ -155,25 +204,32 @@ function insertSTIRT() {
 
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
-        // Case 1: The active element is a contenteditable div
-
-        // Create a new text node with the diacritical mark above character
-        const newNode = document.createTextNode(stirtMark);
-
-        // Get the selection range
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-          range.deleteContents();
-
-          range.insertNode(newNode);
-          range.collapse();
-          
-          // Trigger an input event to update the target element
-          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
-          targetElement.dispatchEvent(new Event('input'));
+        //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
+        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+          send_text_helper(stirtMark);
         }
-      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+          else{
+          // Case 1: The active element is a contenteditable div
+
+          // Create a new text node with the diacritical mark above character
+          const newNode = document.createTextNode(stirtMark);
+
+          // Get the selection range
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+
+            range.insertNode(newNode);
+            range.collapse();
+            
+            // Trigger an input event to update the target element
+            const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+            targetElement.dispatchEvent(new Event('input'));
+          }
+        }
+      }
+      else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
         // Case 2: The active element is an input or textarea
         const start = activeElement.selectionStart;
         const end = activeElement.selectionEnd;
@@ -244,37 +300,44 @@ function replaceSelectedText(style) {
 
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
-        // Case 1: The active element is a contenteditable div
-
-        // Create a new text node with the replaced text
-        const newNode = document.createTextNode(replacedText);
-
-        // Get the selection range
-        const selection = window.getSelection();
-        if (selection.rangeCount > 0) {
-          const range = selection.getRangeAt(0);
-
-          // Delete the selected content and insert the new node in its place
-          range.deleteContents();
-          range.insertNode(newNode);
-
-          // Move the caret to the end of the inserted content
-          range.collapse(false);
-
-          // Deselect the current selection
-          selection.removeAllRanges();
-
-          const spaceTextNode = document.createTextNode('');
-          const spaceRange = document.createRange();
-          spaceRange.setStart(newNode, newNode.length);
-          spaceRange.setEnd(newNode, newNode.length);
-          spaceRange.insertNode(spaceTextNode);
-
-          //so because its vue.js we need to dispatch an actual input event in order for it to register the state change into the message store, otherwise it only changes the DOM
-          const targetElement = document.getElementsByClassName(document.activeElement.className)[0]
-          targetElement.dispatchEvent(new Event('input'));
+        //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
+        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+          send_text_helper(replacedText);
         }
-      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        else{
+          // Case 1: The active element is a contenteditable div
+
+          // Create a new text node with the replaced text
+          const newNode = document.createTextNode(replacedText);
+
+          // Get the selection range
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+
+            // Delete the selected content and insert the new node in its place
+            range.deleteContents();
+            range.insertNode(newNode);
+
+            // Move the caret to the end of the inserted content
+            range.collapse(false);
+
+            // Deselect the current selection
+            selection.removeAllRanges();
+
+            const spaceTextNode = document.createTextNode('');
+            const spaceRange = document.createRange();
+            spaceRange.setStart(newNode, newNode.length);
+            spaceRange.setEnd(newNode, newNode.length);
+            spaceRange.insertNode(spaceTextNode);
+
+            //so because its vue.js we need to dispatch an actual input event in order for it to register the state change into the message store, otherwise it only changes the DOM
+            const targetElement = document.getElementsByClassName(document.activeElement.className)[0]
+            targetElement.dispatchEvent(new Event('input'));
+          }
+        }
+      }
+      else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
         // Case 2: The active element is an input or textarea
         const start = activeElement.selectionStart;
         const end = activeElement.selectionEnd;
