@@ -197,7 +197,7 @@ function insertSTIRT() {
   const selectedText = window.getSelection().toString();
 
   if (selectedText) {
-    const stirtMark = '\uFB05'; // Insert the ft mark, which is converted to ST when upper() operation occurs in most languages
+    const stirtMark = '\u017F'; // Insert the ſ mark, which is converted to S when upper() operation occurs in most languages
 
     // Get the active element where the selected text is located
     const activeElement = document.activeElement;
