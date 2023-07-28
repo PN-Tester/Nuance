@@ -15,6 +15,13 @@ function insertDiacriticalMarkAbove() {
 }
 
 // Function to handle the button click for inserting diacritical mark above
+function insertXSSPolyglot() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'replaceSelectedText', style: 'XSS' });
+  });
+}
+
+// Function to handle the button click for inserting diacritical mark above
 function insertSTIRT() {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { action: 'replaceSelectedText', style: 'STIRT' });
@@ -41,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
   // Add event listener for the diacritical button
   document.getElementById('diacriticalButton').addEventListener('click', function () {
     insertDiacriticalMarkAbove();
+  });
+  document.getElementById('xssButton').addEventListener('click', function () {
+    insertXSSPolyglot();
   });
   // Add event listener for the stirt button
   document.getElementById('stirtButton').addEventListener('click', function () {
