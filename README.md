@@ -13,9 +13,8 @@ Almost all systems are capable of rendering the bold and italic text generated b
 
 More features will be added in the near future!
 
-![Nuance Screenshot](https://github.com/PN-Tester/Nuance/blob/main/nuance_demo.PNG)
-
 # Installation
+![Nuance Screenshot](https://github.com/PN-Tester/Nuance/blob/main/nuance_demo.PNG)
 
 1. git clone https://github.com/PN-Tester/Nuance/
 2. In chrome, navigate to chrome://extensions
