@@ -14,13 +14,12 @@ Almost all systems are capable of rendering the bold and italic text generated b
 More features will be added in the near future!
 
 # Installation
-![Nuance Screenshot](https://github.com/PN-Tester/Nuance/blob/main/Nuance%20-%20Installation.gif)
-
 1. git clone https://github.com/PN-Tester/Nuance/
 2. In chrome, navigate to chrome://extensions
 3. select the "Developer mode" switch in the upper right-hand corner
 4. Select "Load unpacked" button which appears in upper left-hand corner
 5. Select the Nuance folder and hit enter
+![Nuance Installation](https://github.com/PN-Tester/Nuance/blob/main/Nuance%20-%20Installation.gif)
 
 # Usage
 1. Select the text on screen you wish to transform
@@ -28,5 +27,7 @@ More features will be added in the near future!
 3. Select one of the options from the menu
 4. The selected text is now replaced or injected with the appropriate unicode
 5. Send the modified message using the native platform
+![Nuance Capabilities](https://github.com/PN-Tester/Nuance/blob/main/Nuance%20-%20Capabilities.gif)
 
 This tool will have additonal functionality added periodically.
+
