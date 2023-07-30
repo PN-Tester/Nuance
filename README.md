@@ -28,8 +28,6 @@ More features will be added in the near future!
 3. Select one of the options from the menu
 4. The selected text is now replaced or injected with the appropriate unicode
 5. Send the modified message using the native platform
-   
-![Nuance Capabilities](https://github.com/PN-Tester/Nuance/blob/main/Nuance%20-%20Capabilities.gif)
 
 This tool will have additonal functionality added periodically.
 
