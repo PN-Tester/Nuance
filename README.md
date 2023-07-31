@@ -5,21 +5,21 @@ Almost all systems are capable of rendering the bold and italic text generated b
 
 # Features
 
-&#119809;&#119822;&#119819;&#119811; : Substitute selected text with bold unicode character equivalent 
+&#119809;&#119822;&#119819;&#119811;  : Substitute selected text with bold unicode character equivalent 
 
-&#119868;&#119879;&#119860;&#119871;&#119868;&#119862; : Substitute selected text with italic unicode character equivalent 
+&#119868;&#119879;&#119860;&#119871;&#119868;&#119862;  : Substitute selected text with italic unicode character equivalent 
 
-50 x &#8679;: Inject fifty Diacritical Mark Above characters at end of selection 
+50 x &#8679;  : Inject fifty Diacritical Mark Above characters at end of selection 
 
-&#x17f; &#11179; S : Substitute selection with Latin Small Letter Long S collision character 
+&#x17f; &#11179; S  : Substitute selection with Latin Small Letter Long S collision character 
 
-&#8490; &#11177; k : Substitute selection with Kelvin collision character 
+&#8490; &#11177; k  : Substitute selection with Kelvin collision character 
 
-123 &#8644; 321 : Inject right-to-left override in front of selection 
+123 &#8644; 321  : Inject right-to-left override in front of selection 
 
-&#60; / &#62;: Substitute selection with Hangul Filler invisible character 
+&#60; / &#62;  : Substitute selection with Hangul Filler invisible character 
 
-&#10007;&#119904;&#119904; : Substitute selection with XSS polyglot 
+&#10007;&#119904;&#119904;  : Substitute selection with XSS polyglot 
 
 More features will be added in the near future!
 
