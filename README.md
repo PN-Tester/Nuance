@@ -26,9 +26,10 @@ More features will be added in the near future!
 # Installation
 1. git clone https://github.com/PN-Tester/Nuance/
 2. In chromium based browser (chrome, edge, opera, etc) navigate to chrome://extensions
-3. select the "Developer mode" switch in the upper right-hand corner
-4. Select "Load unpacked" button which appears in upper left-hand corner
+3. Set the "Developer mode" switch to Enabled
+4. Select "Load unpacked" button which appears
 5. Select the Nuance folder and hit enter
+6. Restart the browser
    
 ![Nuance Installation](https://github.com/PN-Tester/Nuance/blob/main/Nuance%20-%20Installation.gif)
 
