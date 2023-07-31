@@ -245,6 +245,110 @@ function insertSTIRT() {
   }
 }
 
+function insertInvisible() {
+  const selectedText = window.getSelection().toString();
+
+  if (selectedText) {
+    const invisibleChar = '\u3164'; // Insert the HANGUL FILLER invisble character 
+
+    // Get the active element where the selected text is located
+    const activeElement = document.activeElement;
+
+    if (activeElement) {
+      if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
+        //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
+        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+          send_text_helper(invisibleChar);
+        }
+          else{
+          // Case 1: The active element is a contenteditable div
+
+          // Create a new text node with the diacritical mark above character
+          const newNode = document.createTextNode(invisibleChar);
+
+          // Get the selection range
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+
+            range.insertNode(newNode);
+            range.collapse();
+            
+            // Trigger an input event to update the target element
+            const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+            targetElement.dispatchEvent(new Event('input'));
+          }
+        }
+      }
+      else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        // Case 2: The active element is an input or textarea
+        const start = activeElement.selectionStart;
+        const end = activeElement.selectionEnd;
+
+        // Append the diacritical mark above character to the end of the selected text
+        activeElement.value = invisibleChar;
+
+        // Move the cursor to the end of the inserted content
+        activeElement.selectionStart = start;
+        activeElement.selectionEnd = start + newText.length;
+      }
+    }
+  }
+}
+
+function insertKelvin() {
+  const selectedText = window.getSelection().toString();
+
+  if (selectedText) {
+    const kelvinChar = '\u212A'; // Insert the Kelvin character 
+
+    // Get the active element where the selected text is located
+    const activeElement = document.activeElement;
+
+    if (activeElement) {
+      if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
+        //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
+        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+          send_text_helper(kelvinChar);
+        }
+          else{
+          // Case 1: The active element is a contenteditable div
+
+          // Create a new text node with the diacritical mark above character
+          const newNode = document.createTextNode(kelvinChar);
+
+          // Get the selection range
+          const selection = window.getSelection();
+          if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+
+            range.insertNode(newNode);
+            range.collapse();
+            
+            // Trigger an input event to update the target element
+            const targetElement = document.getElementsByClassName(document.activeElement.className)[0];
+            targetElement.dispatchEvent(new Event('input'));
+          }
+        }
+      }
+      else if (['INPUT', 'TEXTAREA'].includes(activeElement.tagName)) {
+        // Case 2: The active element is an input or textarea
+        const start = activeElement.selectionStart;
+        const end = activeElement.selectionEnd;
+
+        // Append the diacritical mark above character to the end of the selected text
+        activeElement.value = kelvinChar;
+
+        // Move the cursor to the end of the inserted content
+        activeElement.selectionStart = start;
+        activeElement.selectionEnd = start + newText.length;
+      }
+    }
+  }
+}
+
 // Function to replace a character with its bold Unicode equivalent
 function replaceWithBoldUnicode(char) {
   const charMap = {
@@ -379,6 +483,14 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.style === 'XSS'){
       insertXSSPolyglot();
       return;
+    }
+    if (message.style === "invisible"){
+      insertInvisible();
+      return;
+    }
+    if (message.style == "kelvin"){
+      insertKelvin();
+      return
     }
     else {
       replaceSelectedText(message.style);
