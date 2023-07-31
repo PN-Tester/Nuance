@@ -5,11 +5,14 @@ Almost all systems are capable of rendering the bold and italic text generated b
 
 # Features
 
-1. Bold unicode character substitution
-2. Italic unicode character substitution
-3. Terminating Diacritical Mark Up injection
-4. Latin Small Letter Long S collision character injection
-5. Right-to-left override injection
+1. &#119809;&#119822;&#119819;&#119811; : Substitute selected text with bold unicode character equivalent
+2. &#119868;&#119879;&#119860;&#119871;&#119868;&#119862; : Substitute selected text with italic unicode character equivalent
+3. 50 x &#8679;: Inject fifty Diacritical Mark Above characters at end of selection
+4. &#x17f; &#11179; S : Substitute selection with Latin Small Letter Long S collision character
+5. &#8490; &#11177; k : Substitute selection with Kelvin collision character
+6. 123 &#8644; 321 : Inject right-to-left override in front of selection
+7. &#60; / &#62;: Substitute selection with Hangul Filler invisible character
+8. &#10007;&#119904;&#119904; : Substitute selection with XSS polyglot
 
 More features will be added in the near future!
 
