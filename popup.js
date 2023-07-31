@@ -14,21 +14,35 @@ function insertDiacriticalMarkAbove() {
   });
 }
 
-// Function to handle the button click for inserting diacritical mark above
+// Function to handle the button click for inserting xss polyglot
 function insertXSSPolyglot() {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { action: 'replaceSelectedText', style: 'XSS' });
   });
 }
 
-// Function to handle the button click for inserting diacritical mark above
+// Function to handle the button click for inserting hangul filler invisible character
+function insertInvisible() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'replaceSelectedText', style: 'invisible' });
+  });
+}
+
+// Function to handle the button click for inserting kelvin character
+function insertKelvin() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, { action: 'replaceSelectedText', style: 'kelvin' });
+  });
+}
+
+// Function to handle the button click for inserting long S character
 function insertSTIRT() {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { action: 'replaceSelectedText', style: 'STIRT' });
   });
 }
 
-// Function to handle the button click for inserting diacritical mark above
+// Function to handle the button click for inserting right-to-left override
 function insertRightLeftMark() {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { action: 'replaceSelectedText', style: 'RightLeft' });
@@ -48,6 +62,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // Add event listener for the diacritical button
   document.getElementById('diacriticalButton').addEventListener('click', function () {
     insertDiacriticalMarkAbove();
+  });
+  document.getElementById('invisibleButton').addEventListener('click', function () {
+    insertInvisible();
+  });
+  document.getElementById('kelvinButton').addEventListener('click', function () {
+    insertKelvin();
   });
   document.getElementById('xssButton').addEventListener('click', function () {
     insertXSSPolyglot();
