@@ -58,6 +58,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('italicButton').addEventListener('click', function () {
     replaceSelectedText('italic');
   });
+  document.getElementById('homoglyphButton').addEventListener('click', function () {
+    replaceSelectedText('homoglyph');
+  });
 
   // Add event listener for the diacritical button
   document.getElementById('diacriticalButton').addEventListener('click', function () {
