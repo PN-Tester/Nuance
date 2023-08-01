@@ -9,6 +9,8 @@ A wide range of web systems are capable of rendering the bold and italic text ge
 
 &#119868;&#119879;&#119860;&#119871;&#119868;&#119862;  : Substitute selected text with italic unicode character equivalent 
 
+abc &#8702; &#593;&#1068;&#1010;  : Substitute selected text with valid variable name unicode homoglyphs
+
 50 x &#8679;  : Inject fifty Diacritical Mark Above characters at end of selection 
 
 &#x17f; &#11179; S  : Substitute selection with Latin Small Letter Long S uppercase transform collision character 
