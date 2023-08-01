@@ -49,6 +49,17 @@ function insertRightLeftMark() {
   });
 }
 
+// add click functionality to the small title so it brings users to the features section of the tools github page
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementsByClassName("nuance-title")[0].addEventListener("click", function() {
+    var newURL = "https://github.com/PN-Tester/Nuance/#features";
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      var activeTab = tabs[0];
+      chrome.tabs.update(activeTab.id, { url: newURL });
+    });
+  });
+});
+
 // Wait for the DOM to be ready before adding the event listeners
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('boldButton').addEventListener('click', function () {
