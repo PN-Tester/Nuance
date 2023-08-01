@@ -11,9 +11,9 @@ A wide range of web systems are capable of rendering the bold and italic text ge
 
 50 x &#8679;  : Inject fifty Diacritical Mark Above characters at end of selection 
 
-&#x17f; &#11179; S  : Substitute selection with Latin Small Letter Long S collision character 
+&#x17f; &#11179; S  : Substitute selection with Latin Small Letter Long S uppercase transform collision character 
 
-&#8490; &#11177; k  : Substitute selection with Kelvin collision character 
+&#8490; &#11177; k  : Substitute selection with Kelvin lowercase transform collision character 
 
 123 &#8644; 321  : Inject right-to-left override in front of selection 
 
