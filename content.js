@@ -349,6 +349,25 @@ function insertKelvin() {
   }
 }
 
+function replaceWithHomoglyph(char) {
+  const charMap = {
+    'a': 'ɑ', 'b': 'Ь', 'c': 'ϲ', 'd': 'ԁ', 'e': '℮', 'f': 'ꬵ', 'g': 'ɡ', 'h': 'հ', 'i': 'í', 'j': 'ј', 'k': '𝗄', 'l': 'ӏ', 'm': '𝔪',
+    'n': 'ո', 'o': 'օ', 'p': 'ρ', 'q': 'զ', 'r': 'ɾ', 's': 'ѕ', 't': '𝗍', 'u': 'ս', 'v': 'ѵ', 'w': 'ԝ', 'x': 'х', 'y': 'ү', 'z': '𝗓',
+    'A': 'Α', 'B': 'Β', 'C': 'Ϲ', 'D': '𝖣', 'E': 'Ε', 'F': 'Ϝ', 'G': 'Ԍ', 'H': 'Η', 'I': 'Ι', 'J': 'Ј', 'K': 'Ⲕ', 'L': 'Ꮮ', 'M': 'Ϻ',
+    'N': 'Ν', 'O': 'Ο', 'P': 'Ρ', 'Q': 'Ԛ', 'R': 'Ɍ', 'S': 'Տ', 'T': 'Τ', 'U': '⋃', 'V': 'Ѵ', 'W': 'Ԝ', 'X': 'Χ', 'Y': 'Υ', 'Z': 'Ζ',
+    
+  };
+
+  // Check if the character is present in the map, if so, return its Latin IPA Extension homoglyph
+  if (char in charMap) {
+    return charMap[char];
+  }
+
+  // Return the original character if not present in the map
+  return char;
+}
+
+
 // Function to replace a character with its bold Unicode equivalent
 function replaceWithBoldUnicode(char) {
   const charMap = {
@@ -395,10 +414,13 @@ function replaceSelectedText(style) {
 
     if (style === 'bold') {
       replacedText = selectedText.split('').map(replaceWithBoldUnicode).join('');
-    } else if (style === 'italic') {
+    }
+    else if (style === 'italic') {
       replacedText = selectedText.split('').map(replaceWithItalicUnicode).join('');
     }
-
+    else if (style === 'homoglyph') {
+      replacedText = selectedText.split('').map(replaceWithHomoglyph).join('');
+    }
     // Get the active element where the selected text is located
     const activeElement = document.activeElement;
 
@@ -488,7 +510,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
       insertInvisible();
       return;
     }
-    if (message.style == "kelvin"){
+    if (message.style === "kelvin"){
       insertKelvin();
       return
     }
