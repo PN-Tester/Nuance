@@ -147,4 +147,17 @@ make it thinner, then set it to again wrap around the entire parent element.
   stroke-dashoffset: 0;
   stroke: #06D6A0;
 }
+@keyframes lightUpAnimation {
+  0% {
+    background-color: rgba(255,255,255,0.2); /* Start with the "super bright" color */
+  }
+  100% {
+    background-color: #linear-gradient(to right bottom, #666666, #111111); /* Return to the original color */
+  }
+}
+
+.svg-wrapper.light-up {
+  /* Start the animation when the class is added */
+  animation: lightUpAnimation 2s;
+  /* Customize the effect to your preference */
 
