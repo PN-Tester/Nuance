@@ -60,6 +60,28 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Wrap the code inside a DOMContentLoaded event listener
+document.addEventListener('DOMContentLoaded', function () {
+  // Get all the buttons with the class "svg-wrapper"
+  const buttons = document.querySelectorAll('.svg-wrapper');
+
+  // Function to apply the light-up effect when the button is clicked
+  function lightUpOnClick() {
+    this.classList.add('light-up');
+
+    // Remove the light-up class when the animation is complete
+    this.addEventListener('animationend', () => {
+      this.classList.remove('light-up');
+    }, { once: true });
+  }
+
+  // Add a click event listener to each button
+  buttons.forEach(button => {
+    button.addEventListener('click', lightUpOnClick);
+  });
+});
+
+
 // Wait for the DOM to be ready before adding the event listeners
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('boldButton').addEventListener('click', function () {
