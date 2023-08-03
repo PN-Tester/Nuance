@@ -49,7 +49,6 @@ function insertRightLeftMark() {
   });
 }
 
-// add click functionality to the small title so it brings users to the features section of the tools github page
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementsByClassName("nuance-title")[0].addEventListener("click", function() {
     var newURL = "https://github.com/PN-Tester/Nuance/#features";
@@ -82,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+
 // Wait for the DOM to be ready before adding the event listeners
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('boldButton').addEventListener('click', function () {
@@ -94,7 +94,9 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('homoglyphButton').addEventListener('click', function () {
     replaceSelectedText('homoglyph');
   });
-
+  document.getElementById('redactButton').addEventListener('click', function () {
+    replaceSelectedText('redacted');
+  });
   // Add event listener for the diacritical button
   document.getElementById('diacriticalButton').addEventListener('click', function () {
     insertDiacriticalMarkAbove();
