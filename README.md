@@ -25,6 +25,8 @@ abc &#8702; &#593;&#1068;&#1010;  : Substitute selected text with valid variable
 
 More features will be added in the near future!
 
+Coming Soon : UTF16 long encoding substitution, Text Redactor, upgraded homoglyph support for unicode "confusables"
+
 # Installation
 1. git clone https://github.com/PN-Tester/Nuance/
 2. In chromium based browser (chrome, edge, opera, etc) navigate to chrome://extensions
