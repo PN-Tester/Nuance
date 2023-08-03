@@ -368,6 +368,12 @@ function replaceWithHomoglyph(char) {
 }
 
 
+// Function to replace a character with its redacted text
+function replaceWithRedacted(char) {
+  // Check if the character is present in the map, if so, return its bold Unicode equivalent
+  return '\u2588';
+}
+
 // Function to replace a character with its bold Unicode equivalent
 function replaceWithBoldUnicode(char) {
   const charMap = {
@@ -417,6 +423,9 @@ function replaceSelectedText(style) {
     }
     else if (style === 'italic') {
       replacedText = selectedText.split('').map(replaceWithItalicUnicode).join('');
+    }
+    else if (style === 'redacted') {
+      replacedText = selectedText.split('').map(replaceWithRedacted).join('');
     }
     else if (style === 'homoglyph') {
       replacedText = selectedText.split('').map(replaceWithHomoglyph).join('');
