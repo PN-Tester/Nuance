@@ -9,6 +9,8 @@ A wide range of web systems are capable of rendering the bold and italic text ge
 
 &#119868;&#119879;&#119860;&#119871;&#119868;&#119862;  : Substitute selected text with italic unicode character equivalent 
 
+x &#8702; &#9608;  : Redact select text by substituting with unicode Full Block
+
 abc &#8702; &#593;&#1068;&#1010;  : Substitute selected text with valid variable name unicode homoglyphs
 
 50 x &#8679;  : Inject fifty Diacritical Mark Above characters at end of selection 
@@ -25,7 +27,7 @@ abc &#8702; &#593;&#1068;&#1010;  : Substitute selected text with valid variable
 
 More features will be added in the near future!
 
-Coming Soon : UTF16 long encoding substitution, Text Redactor, upgraded homoglyph support for unicode "confusables"
+Coming Soon : UTF16 long encoding substitution, upgraded homoglyph support for unicode "confusables"
 
 # Installation
 1. git clone https://github.com/PN-Tester/Nuance/
