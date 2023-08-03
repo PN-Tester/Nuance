@@ -9,7 +9,7 @@ A wide range of web systems are capable of rendering the bold and italic text ge
 
 &#119868;&#119879;&#119860;&#119871;&#119868;&#119862;  : Substitute selected text with italic unicode character equivalent 
 
-x &#8702; &#9608;  : Redact selected text by substituting with unicode Full Block
+x &#8702; &#9608;  : Redact selected text by substituting all characters with unicode Full Blocks
 
 abc &#8702; &#593;&#1068;&#1010;  : Substitute selected text with valid variable name unicode homoglyphs
 
