@@ -1,7 +1,7 @@
 /* popup.css */
 body {
   font-family: Arial, sans-serif;
-  display: flex;
+  display: block;
   flex-direction: column; /* Display children elements in a column */
   align-items: center; /* Center horizontally */
   justify-content: center; /* Center vertically */
