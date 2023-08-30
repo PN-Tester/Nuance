@@ -29,7 +29,7 @@ function insertXSSPolyglot() {
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
-        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+        if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(decodedBlob);
         }
         else{
@@ -139,7 +139,7 @@ function insertRightLeftMark() {
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
-        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+        if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           //we need a super annoying algo to get to the front of the selection here haha, rip
           const selection = window.getSelection();
           const range = selection.getRangeAt(0);
@@ -205,7 +205,7 @@ function insertSTIRT() {
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
-        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+        if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(stirtMark);
         }
           else{
@@ -257,7 +257,7 @@ function insertInvisible() {
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
-        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+        if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(invisibleChar);
         }
           else{
@@ -309,7 +309,7 @@ function insertKelvin() {
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
-        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+        if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(kelvinChar);
         }
           else{
@@ -436,7 +436,7 @@ function replaceSelectedText(style) {
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
-        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+        if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(replacedText);
         }
         else{
