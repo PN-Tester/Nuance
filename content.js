@@ -3,14 +3,14 @@
 
 //this helper functions needs to be used when sending on whatsapp and possibly other platforms. Included in conditional logic for when whatsapp is encountered.
 function send_text_helper(text) {
-const dataTransfer = new DataTransfer();
-dataTransfer.setData('text', text);
-const event = new ClipboardEvent('paste', {
-      clipboardData: dataTransfer,
-      bubbles: true
+    const dataTransfer = new DataTransfer();
+    dataTransfer.setData('text', text);
+    const event = new ClipboardEvent('paste', {
+        clipboardData: dataTransfer,
+        bubbles: true
     });
-let el = document.querySelector('#main .copyable-area [contenteditable="true"][role="textbox"]')
-el.dispatchEvent(event)
+    let el = document.querySelector('#main .copyable-area [contenteditable="true"][role="textbox"]')
+    el.dispatchEvent(event)
 }
 
 
@@ -80,7 +80,7 @@ function insertDiacriticalMarkAbove() {
     if (activeElement) {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
-        if (activeElement && activeElement.hasAttribute('data-testid') && activeElement.getAttribute('data-testid') === 'conversation-compose-box-input') {
+        if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           const selection = window.getSelection();
           const range = selection.getRangeAt(0);
           range.collapse();
