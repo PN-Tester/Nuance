@@ -32,6 +32,9 @@ function insertXSSPolyglot() {
         if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(decodedBlob);
         }
+        //new for changes in some whatsapp web instances sept 2024
+        else if (activeElement && activeElement.hasAttribute('aria-placeholder') && activeElement.ariaPlaceholder == 'Type a message')
+          send_text_helper(decodedBlob);
         else{
           // Case 1: The active element is a contenteditable div
           // create new text node containing the polyglot decoded
@@ -81,6 +84,13 @@ function insertDiacriticalMarkAbove() {
       if (activeElement.tagName === 'DIV' && activeElement.isContentEditable) {
         //Need a function to identify when we are in whatsapp, cuz it refuses to cooperate.. If detected call the helper function
         if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
+          const selection = window.getSelection();
+          const range = selection.getRangeAt(0);
+          range.collapse();
+          send_text_helper(diacriticalMarkAbove);
+        }
+        //new for changes in some whatsapp web instances sept 2024
+        else if (activeElement && activeElement.hasAttribute('aria-placeholder') && activeElement.ariaPlaceholder == 'Type a message'){
           const selection = window.getSelection();
           const range = selection.getRangeAt(0);
           range.collapse();
@@ -153,6 +163,21 @@ function insertRightLeftMark() {
           selection.addRange(newRange);
           send_text_helper(rightLeftMark);
         }
+        //new for changes in some whatsapp web instances sept 2024
+        else if (activeElement && activeElement.hasAttribute('aria-placeholder') && activeElement.ariaPlaceholder == 'Type a message'){
+          const selection = window.getSelection();
+          const range = selection.getRangeAt(0);
+          const newRange = document.createRange();
+          const startNode = range.startContainer;
+          const startOffset = range.startOffset;
+          newRange.setStart(startNode, startOffset);
+          newRange.setEnd(startNode, startOffset);
+          newRange.collapse(true);
+          selection.removeAllRanges();
+          selection.addRange(newRange);
+          send_text_helper(rightLeftMark);
+        }
+
         else{
           // Case 1: The active element is a contenteditable div
 
@@ -208,6 +233,9 @@ function insertSTIRT() {
         if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(stirtMark);
         }
+        //new for changes in some whatsapp web instances sept 2024
+        else if (activeElement && activeElement.hasAttribute('aria-placeholder') && activeElement.ariaPlaceholder == 'Type a message')
+          send_text_helper(stirtMark);
           else{
           // Case 1: The active element is a contenteditable div
 
@@ -260,6 +288,9 @@ function insertInvisible() {
         if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(invisibleChar);
         }
+        //new for changes in some whatsapp web instances sept 2024
+        else if (activeElement && activeElement.hasAttribute('aria-placeholder') && activeElement.ariaPlaceholder == 'Type a message')
+          send_text_helper(invisibleChar);
           else{
           // Case 1: The active element is a contenteditable div
 
@@ -312,6 +343,9 @@ function insertKelvin() {
         if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(kelvinChar);
         }
+        //new for changes in some whatsapp web instances sept 2024
+        else if (activeElement && activeElement.hasAttribute('aria-placeholder') && activeElement.ariaPlaceholder == 'Type a message')
+          send_text_helper(kelvinChar);
           else{
           // Case 1: The active element is a contenteditable div
 
@@ -439,6 +473,9 @@ function replaceSelectedText(style) {
         if (activeElement && activeElement.hasAttribute('title') && activeElement.title == 'Type a message') {
           send_text_helper(replacedText);
         }
+        //new for changes in some whatsapp web instances sept 2024
+        else if (activeElement && activeElement.hasAttribute('aria-placeholder') && activeElement.ariaPlaceholder == 'Type a message')
+          send_text_helper(replacedText);
         else{
           // Case 1: The active element is a contenteditable div
 
